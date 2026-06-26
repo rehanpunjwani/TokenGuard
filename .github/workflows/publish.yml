@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      id-token: none
       contents: read
 
     steps:
@@ -36,12 +37,8 @@ jobs:
 
       - name: Publish to PyPI
         if: github.event_name == 'release' && inputs.pypi_target != 'testpypi'
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: uv publish
+        run: uv publish --token ${{ secrets.PYPI_TOKEN }}
 
       - name: Publish to TestPyPI
         if: inputs.pypi_target == 'testpypi'
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: uv publish --publish-url https://test.pypi.org/legacy/
+        run: uv publish --publish-url https://test.pypi.org/legacy/ --token ${{ secrets.PYPI_TOKEN }}
