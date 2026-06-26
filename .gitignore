@@ -32,7 +32,7 @@ Thumbs.db
 *.db
 *.sqlite
 .sqlite3
-tokenguard.db
+recall-py.db
 
 # Docker
 .docker/

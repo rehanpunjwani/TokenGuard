@@ -1,6 +1,6 @@
 # Architecture
 
-TokenGuard is a local-first RAG system designed to reduce cloud LLM spend. Here is how it works.
+RecallPy is a local-first RAG system designed to reduce cloud LLM spend. Here is how it works.
 
 ## Overview
 

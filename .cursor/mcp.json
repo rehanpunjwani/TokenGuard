@@ -1,11 +1,11 @@
 {
   "mcpServers": {
-    "tokenguard": {
+    "recall-py": {
       "command": "bash",
       "args": ["scripts/mcp-stdio.sh"],
       "cwd": "${workspaceFolder}",
       "env": {
-        "TOKENGUARD_WORKSPACE": "${workspaceFolder}"
+        "RECALL_PY_WORKSPACE": "${workspaceFolder}"
       }
     }
   }

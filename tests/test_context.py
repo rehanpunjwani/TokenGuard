@@ -1,8 +1,8 @@
-from tokenguard.context import build_agent_context_message, format_context_injection
+from recall_py.context import build_agent_context_message, format_context_injection
 
 
 def test_format_context_empty():
-    assert "tokenguard index" in format_context_injection([])
+    assert "recall-py index" in format_context_injection([])
 
 
 def test_build_agent_message_includes_citations():
@@ -11,7 +11,7 @@ def test_build_agent_message_includes_citations():
         workspace_fingerprint="/tmp/proj",
         user_query="How do I run MCP?",
         citations=[
-            {"chunk_id": "c1", "score": 0.85, "text": "Run tokenguard mcp-stdio via IDE."},
+            {"chunk_id": "c1", "score": 0.85, "text": "Run recall-py mcp-stdio via IDE."},
         ],
         top_score=0.85,
     )

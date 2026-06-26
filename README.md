@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="docs/assets/logo.svg" alt="TokenGuard" width="480" />
+  <img src="docs/assets/logo.svg" alt="RecallPy" width="480" />
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/tokenguard/"><img src="https://img.shields.io/pypi/v/tokenguard?style=flat&label=PyPI" alt="PyPI" /></a>
-  <a href="https://pypi.org/project/tokenguard/"><img src="https://img.shields.io/pypi/pyversions/tokenguard?style=flat&label=Python" alt="Python versions" /></a>
+  <a href="https://pypi.org/project/recall-py/"><img src="https://img.shields.io/pypi/v/recall-py?style=flat&label=PyPI" alt="PyPI" /></a>
+  <a href="https://pypi.org/project/recall-py/"><img src="https://img.shields.io/pypi/pyversions/recall-py?style=flat&label=Python" alt="Python versions" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License" /></a>
   <a href="https://github.com/rehanpunjwani/TokenGuard/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/rehanpunjwani/TokenGuard/ci.yml?style=flat&label=CI" alt="CI" /></a>
   <a href="https://rehanpunjwani.github.io/TokenGuard"><img src="https://img.shields.io/badge/docs-mkdocs-4F46E5?style=flat" alt="Docs" /></a>
@@ -12,7 +12,7 @@
 
 ---
 
-**TokenGuard** is a Python library and CLI that helps you cut cloud LLM costs by caching conversations, retrieving relevant context via RAG, and routing queries to local models when appropriate. It integrates natively with Cursor, Claude Code, and any OpenAI-compatible client.
+**RecallPy** is a Python library and CLI that helps you cut cloud LLM costs by caching conversations, retrieving relevant context via RAG, and routing queries to local models when appropriate. It integrates natively with Cursor, Claude Code, and any OpenAI-compatible client.
 
 ## Key features
 
@@ -26,18 +26,18 @@
 ## Quick start
 
 ```bash
-python3.12 -m pip install tokenguard
-tokenguard onboard
-tokenguard doctor
+python3.12 -m pip install recall-py
+recall-py onboard
+recall-py doctor
 ```
 
 ## Library usage
 
 ```python
 import sqlite3
-from tokenguard.engine import handle_query, ingest_turn
-from tokenguard.ollama_client import OllamaClient
-from tokenguard.settings import AppSettings
+from recall_py.engine import handle_query, ingest_turn
+from recall_py.ollama_client import OllamaClient
+from recall_py.settings import AppSettings
 
 settings = AppSettings.load()
 conn = sqlite3.connect(settings.resolved_db_path())
@@ -66,12 +66,12 @@ await ingest_turn(
 
 | Command | Purpose |
 |---------|---------|
-| `tokenguard onboard` | First-time setup: config, DB, Ollama, MCP snippet |
-| `tokenguard serve` | HTTP API (health + optional proxy) |
-| `tokenguard mcp-stdio` | MCP server for IDE integration |
-| `tokenguard doctor` | Check DB, migrations, Ollama |
-| `tokenguard metrics` | Token savings overview |
-| `tokenguard index` | Index workspace docs into RAG memory |
+| `recall-py onboard` | First-time setup: config, DB, Ollama, MCP snippet |
+| `recall-py serve` | HTTP API (health + optional proxy) |
+| `recall-py mcp-stdio` | MCP server for IDE integration |
+| `recall-py doctor` | Check DB, migrations, Ollama |
+| `recall-py metrics` | Token savings overview |
+| `recall-py index` | Index workspace docs into RAG memory |
 
 ## Documentation
 
@@ -88,7 +88,7 @@ See the [Getting Started guide](https://rehanpunjwani.github.io/TokenGuard/getti
 
 ## Architecture
 
-TokenGuard stores every user and assistant message in SQLite, chunks them, and embeds each chunk via Ollama. On each query, it retrieves the most semantically relevant chunks and optionally drafts a local answer. When the local draft is too uncertain, it signals escalation — you paste the context pack into your cloud model instead. All token operations are tracked for savings reporting.
+RecallPy stores every user and assistant message in SQLite, chunks them, and embeds each chunk via Ollama. On each query, it retrieves the most semantically relevant chunks and optionally drafts a local answer. When the local draft is too uncertain, it signals escalation — you paste the context pack into your cloud model instead. All token operations are tracked for savings reporting.
 
 [Read the architecture docs](https://rehanpunjwani.github.io/TokenGuard/architecture/)
 
@@ -98,7 +98,7 @@ TokenGuard stores every user and assistant message in SQLite, chunks them, and e
 bash scripts/docker-up.sh
 ```
 
-Starts TokenGuard + Ollama with a single command. See [docker-compose.yml](docker-compose.yml).
+Starts RecallPy + Ollama with a single command. See [docker-compose.yml](docker-compose.yml).
 
 ## Contributing
 

@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "TokenGuard Setup Verification"
+echo "RecallPy Setup Verification"
 echo "=============================="
 echo ""
 
-# Check if tokenguard is installed
-if ! command -v tokenguard &> /dev/null; then
-    echo "❌ tokenguard command not found. Install with: python3 -m pip install tokenguard"
+# Check if recall-py is installed
+if ! command -v recall-py &> /dev/null; then
+    echo "❌ recall-py command not found. Install with: python3 -m pip install recall-py"
     echo "   (or from a clone: python3 -m pip install -e .)"
     exit 1
 fi
-echo "✓ tokenguard installed"
+echo "✓ recall-py installed"
 
 # Check Ollama
 if curl -s http://127.0.0.1:11434/api/tags > /dev/null 2>&1; then
@@ -41,21 +41,21 @@ else
     echo "❌ llama3.2 model not found. Run: ollama pull llama3.2"
 fi
 
-# Run tokenguard doctor
+# Run recall-py doctor
 echo ""
-echo "Running tokenguard doctor..."
-if tokenguard doctor > /dev/null 2>&1; then
-    echo "✓ tokenguard doctor passed"
+echo "Running recall-py doctor..."
+if recall-py doctor > /dev/null 2>&1; then
+    echo "✓ recall-py doctor passed"
 else
-    echo "⚠️  tokenguard doctor reported issues"
-    tokenguard doctor
+    echo "⚠️  recall-py doctor reported issues"
+    recall-py doctor
 fi
 
 echo ""
 if $EMBED_OK && $CHAT_OK; then
-    echo "✅ Setup verified! You can now configure TokenGuard in your IDE's MCP settings."
+    echo "✅ Setup verified! You can now configure RecallPy in your IDE's MCP settings."
     echo ""
-    echo "Next step: Run 'tokenguard onboard' to see the MCP configuration snippet."
+    echo "Next step: Run 'recall-py onboard' to see the MCP configuration snippet."
 else
     echo "⚠️  Some models are missing. Pull them with:"
     echo "   ollama pull nomic-embed-text"

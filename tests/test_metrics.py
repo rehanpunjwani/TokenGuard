@@ -2,21 +2,21 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from tokenguard.app import open_connection
-from tokenguard.engine import answer, escalate_pack, handle_query
-from tokenguard.metrics import (
+from recall_py.app import open_connection
+from recall_py.engine import answer, escalate_pack, handle_query
+from recall_py.metrics import (
     record_ingest_dedup,
     record_local_draft,
     summary,
 )
-from tokenguard.ollama_client import OllamaClient
-from tokenguard.settings import AppSettings
-from tokenguard.store.db import CURRENT_SCHEMA_VERSION, get_schema_version
+from recall_py.ollama_client import OllamaClient
+from recall_py.settings import AppSettings
+from recall_py.store.db import CURRENT_SCHEMA_VERSION, get_schema_version
 
 
 def test_schema_includes_usage_events(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
     assert get_schema_version(conn) == CURRENT_SCHEMA_VERSION
@@ -29,7 +29,7 @@ def test_schema_includes_usage_events(tmp_path, monkeypatch):
 
 def test_record_local_draft_and_summary(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
 
@@ -37,10 +37,10 @@ def test_record_local_draft_and_summary(tmp_path, monkeypatch):
         conn,
         thread_id=None,
         provider="test",
-        query="What is TokenGuard?",
-        context="[abc]\nTokenGuard saves tokens.",
+            query="What is RecallPy?",
+        context="[abc]\nRecallPy saves tokens.",
         system_prompt="You are helpful.",
-        draft="TokenGuard is a local cache.",
+        draft="RecallPy is a local cache.",
         local_embed_tokens=10,
     )
     assert turn["tokens_saved"] >= 0
@@ -54,7 +54,7 @@ def test_record_local_draft_and_summary(tmp_path, monkeypatch):
 
 def test_ingest_dedup_records_savings(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
 
@@ -72,7 +72,7 @@ def test_ingest_dedup_records_savings(tmp_path, monkeypatch):
 @pytest.mark.asyncio
 async def test_handle_query_returns_metrics(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
     ollama = OllamaClient(settings.ollama)
@@ -85,7 +85,7 @@ async def test_handle_query_returns_metrics(tmp_path, monkeypatch):
             conn,
             settings,
             ollama,
-            query="What is TokenGuard?",
+        query="What is RecallPy?",
             thread_id=None,
             workspace_fingerprint=str(tmp_path),
         )
@@ -99,7 +99,7 @@ async def test_handle_query_returns_metrics(tmp_path, monkeypatch):
 @pytest.mark.asyncio
 async def test_answer_dedup_skips_reingest_metrics(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
     ollama = OllamaClient(settings.ollama)
@@ -126,7 +126,7 @@ async def test_answer_dedup_skips_reingest_metrics(tmp_path, monkeypatch):
 @pytest.mark.asyncio
 async def test_escalate_pack_metrics(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
     ollama = OllamaClient(settings.ollama)
@@ -148,7 +148,7 @@ async def test_escalate_pack_metrics(tmp_path, monkeypatch):
 @pytest.mark.asyncio
 async def test_answer_includes_metrics(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
     settings = AppSettings.load()
     conn = open_connection(settings)
     ollama = OllamaClient(settings.ollama)

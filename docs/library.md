@@ -1,6 +1,6 @@
 # Library API
 
-TokenGuard is first and foremost a Python library. It exposes a clean, async API that you can import directly.
+RecallPy is first and foremost a Python library. It exposes a clean, async API that you can import directly.
 
 ## Core functions
 
@@ -10,9 +10,9 @@ The primary entry point for processing a user query. It ingests the message, ret
 
 ```python
 import sqlite3
-from tokenguard.engine import handle_query
-from tokenguard.ollama_client import OllamaClient
-from tokenguard.settings import AppSettings
+from recall_py.engine import handle_query
+from recall_py.ollama_client import OllamaClient
+from recall_py.settings import AppSettings
 
 settings = AppSettings.load()
 conn = sqlite3.connect(settings.resolved_db_path())
@@ -46,7 +46,7 @@ result = await handle_query(
 Store a conversation turn (user or assistant) in the database and index it for retrieval.
 
 ```python
-from tokenguard.engine import ingest_turn
+from recall_py.engine import ingest_turn
 
 out = await ingest_turn(
     conn, settings, ollama,
@@ -65,7 +65,7 @@ out = await ingest_turn(
 Generate a local draft answer using Ollama, with optional escalation.
 
 ```python
-from tokenguard.engine import answer
+from recall_py.engine import answer
 
 result = await answer(
     conn, settings, ollama,
@@ -80,7 +80,7 @@ result = await answer(
 Stream a local draft answer token by token.
 
 ```python
-from tokenguard.engine import answer_stream
+from recall_py.engine import answer_stream
 
 async for token in answer_stream(
     conn, settings, ollama,
@@ -95,7 +95,7 @@ async for token in answer_stream(
 Build a compact JSON pack (RAG context + recent turns) for cloud model reasoning.
 
 ```python
-from tokenguard.engine import escalate_pack
+from recall_py.engine import escalate_pack
 
 pack = await escalate_pack(
     conn, settings, ollama,
@@ -113,7 +113,7 @@ pack_json = pack["pack_json"]
 Retrieve semantically relevant chunks for a query.
 
 ```python
-from tokenguard.context import retrieve_context
+from recall_py.context import retrieve_context
 
 rag = await retrieve_context(
     conn, settings, ollama,
@@ -130,7 +130,7 @@ rag = await retrieve_context(
 Format a context message for agent prompts.
 
 ```python
-from tokenguard.context import build_agent_context_message
+from recall_py.context import build_agent_context_message
 
 msg = build_agent_context_message(
     thread_id=tid,
@@ -144,7 +144,7 @@ msg = build_agent_context_message(
 ## Metrics
 
 ```python
-from tokenguard.metrics import summary
+from recall_py.metrics import summary
 
 data = summary(conn, thread_id=tid)
 print(f"Tokens saved: {data['totals']['tokens_saved']}")
@@ -153,7 +153,7 @@ print(f"Tokens saved: {data['totals']['tokens_saved']}")
 ## Settings
 
 ```python
-from tokenguard.settings import AppSettings
+from recall_py.settings import AppSettings
 
 config = AppSettings.load()                        # default chain
 config = AppSettings.load(Path("/path/to/cfg.yaml"))  # explicit

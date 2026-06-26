@@ -1,6 +1,6 @@
-# Contributing to TokenGuard
+# Contributing to RecallPy
 
-Thanks for your interest! TokenGuard is an open-source project and we welcome contributions of all kinds.
+Thanks for your interest! RecallPy is an open-source project and we welcome contributions of all kinds.
 
 ## Ways to contribute
 

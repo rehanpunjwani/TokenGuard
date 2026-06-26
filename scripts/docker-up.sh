@@ -9,5 +9,5 @@ if [[ "${SKIP_MODEL_PULL:-}" != "1" ]]; then
   docker compose exec -T ollama ollama pull llama3.2
 fi
 echo ""
-echo "TokenGuard API: http://127.0.0.1:8766/health"
+echo "RecallPy API: http://127.0.0.1:8766/health"
 echo "Ollama:         http://127.0.0.1:11434"
