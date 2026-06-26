@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/rehanpunjwani/recall-py/compare/v0.1.1...v0.1.2) (2026-06-26)
+
+
+### Bug Fixes
+
+* update remaining repo URL references to recall-py ([0819bba](https://github.com/rehanpunjwani/recall-py/commit/0819bbaf35186cbcaf42c9e2fc05084003a29465))
+
 ## [0.1.1](https://github.com/rehanpunjwani/recall-py/compare/v0.1.0...v0.1.1) (2026-06-26)
 
 
