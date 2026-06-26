@@ -3,8 +3,6 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/tokenguard/"><img src="https://img.shields.io/pypi/v/tokenguard?style=flat&label=PyPI" alt="PyPI" /></a>
-  <a href="https://pypi.org/project/tokenguard/"><img src="https://img.shields.io/pypi/pyversions/tokenguard?style=flat&label=Python" alt="Python versions" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License" /></a>
   <a href="https://github.com/rehanpunjwani/TokenGuard/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/rehanpunjwani/TokenGuard/ci.yml?style=flat&label=CI" alt="CI" /></a>
   <a href="https://rehanpunjwani.github.io/TokenGuard"><img src="https://img.shields.io/badge/docs-mkdocs-4F46E5?style=flat" alt="Docs" /></a>
