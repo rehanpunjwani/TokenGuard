@@ -3,8 +3,8 @@
 ## Setup
 
 ```bash
-git clone https://github.com/rehanpunjwani/TokenGuard
-cd TokenGuard
+git clone https://github.com/rehanpunjwani/RecallPy
+cd RecallPy
 python3.12 -m venv .venv
 source .venv/bin/activate
 python3.12 -m pip install -e ".[dev]"
@@ -36,9 +36,9 @@ pyright src/ tests/
 ## Project structure
 
 ```
-src/tokenguard/
+src/recall_py/
 ├── __init__.py          # Package version
-├── __main__.py          # python -m tokenguard
+├── __main__.py          # python -m recall_py
 ├── app.py               # FastAPI application factory
 ├── cli.py               # Typer CLI entrypoints
 ├── config/
@@ -72,7 +72,7 @@ src/tokenguard/
 
 ## Making a release
 
-1. Update version in `src/tokenguard/__init__.py`
+1. Update version in `src/recall_py/__init__.py`
 2. Commit and tag: `git tag v0.x.x && git push --tags`
 3. GitHub Actions will build and publish to PyPI automatically
 4. Update the docs site: `mkdocs gh-deploy`

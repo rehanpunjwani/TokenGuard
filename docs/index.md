@@ -1,16 +1,16 @@
-# TokenGuard
+# RecallPy
 
 <p align="center">
-  <img src="assets/logo.svg" alt="TokenGuard" width="400" />
+  <img src="assets/logo.svg" alt="RecallPy" width="400" />
 </p>
 
 **Local-first conversation cache, RAG retrieval, and intelligent routing to reduce cloud LLM spend.**
 
-TokenGuard is a Python library and CLI that sits between you and expensive cloud LLM calls. It stores every conversation turn in a local SQLite database, indexes it for semantic retrieval, and drafts answers using a cheap local model (Ollama). When the local draft is insufficient, it escalates to your cloud model — saving tokens without sacrificing quality.
+RecallPy is a Python library and CLI that sits between you and expensive cloud LLM calls. It stores every conversation turn in a local SQLite database, indexes it for semantic retrieval, and drafts answers using a cheap local model (Ollama). When the local draft is insufficient, it escalates to your cloud model — saving tokens without sacrificing quality.
 
 ---
 
-## Why TokenGuard?
+## Why RecallPy?
 
 - **💰 Cut cloud spend** — answer common questions locally, cache identical requests, compress outbound messages
 - **🧠 Persistent memory** — every interaction is indexed and retrievable across sessions
@@ -21,19 +21,19 @@ TokenGuard is a Python library and CLI that sits between you and expensive cloud
 ## Quick start
 
 ```bash
-python3.12 -m pip install tokenguard
-tokenguard onboard
-tokenguard doctor
+python3.12 -m pip install recall-py
+recall-py onboard
+recall-py doctor
 ```
 
 ## Library usage
 
 ```python
 import sqlite3
-from tokenguard.engine import handle_query, ingest_turn
-from tokenguard.context import retrieve_context
-from tokenguard.ollama_client import OllamaClient
-from tokenguard.settings import AppSettings
+from recall_py.engine import handle_query, ingest_turn
+from recall_py.context import retrieve_context
+from recall_py.ollama_client import OllamaClient
+from recall_py.settings import AppSettings
 
 settings = AppSettings.load()
 conn = sqlite3.connect(settings.resolved_db_path())
@@ -65,7 +65,7 @@ await ingest_turn(
 
 - [Getting started](getting-started.md) — install, onboard, first run
 - [CLI reference](cli.md) — all available commands
-- [Library API](library.md) — use TokenGuard as a Python library
+- [Library API](library.md) — use RecallPy as a Python library
 - [MCP tools](mcp-tools.md) — IDE integration via Model Context Protocol
 - [Configuration](configuration.md) — YAML, env vars, all options
 - [Architecture](architecture.md) — how it works under the hood

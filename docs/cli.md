@@ -1,20 +1,20 @@
 # CLI Reference
 
-TokenGuard is available as a command-line tool via `tokenguard` (or `python -m tokenguard`).
+RecallPy is available as a command-line tool via `recall-py` (or `python -m recall_py`).
 
 ## Global options
 
 | Option | Env var | Description |
 |--------|---------|-------------|
-| `--config`, `-c` | `TOKENGUARD_CONFIG` | Path to a YAML config file |
-| | `TOKENGUARD_OLLAMA_BASE_URL` | Override `ollama.base_url` |
-| | `TOKENGUARD_DB_PATH` | Override `storage.db_path` |
-| | `TOKENGUARD_API_LISTEN_HOST` | Override `api.listen_host` |
-| | `TOKENGUARD_API_LISTEN_PORT` | Override `api.listen_port` |
+| `--config`, `-c` | `RECALL_PY_CONFIG` | Path to a YAML config file |
+| | `RECALL_PY_OLLAMA_BASE_URL` | Override `ollama.base_url` |
+| | `RECALL_PY_DB_PATH` | Override `storage.db_path` |
+| | `RECALL_PY_API_LISTEN_HOST` | Override `api.listen_host` |
+| | `RECALL_PY_API_LISTEN_PORT` | Override `api.listen_port` |
 
 ## Commands
 
-### `tokenguard onboard`
+### `recall-py onboard`
 
 First-time setup: config file, database migration, Ollama check, optional model pulls, and an MCP snippet.
 
@@ -25,7 +25,7 @@ Options:
   --skip-pull         Skip Ollama model downloads
 ```
 
-### `tokenguard serve`
+### `recall-py serve`
 
 Start the HTTP API server.
 
@@ -43,7 +43,7 @@ Endpoints:
 | `/health` | GET | Health check (Ollama reachability) |
 | `/v1/chat/completions` | POST | OpenAI-compatible proxy (when `proxy.enabled`) |
 
-### `tokenguard mcp-stdio`
+### `recall-py mcp-stdio`
 
 Run the MCP server on stdio (for IDE integration).
 
@@ -52,7 +52,7 @@ Options:
   --config, -c PATH   Optional YAML config path
 ```
 
-### `tokenguard doctor`
+### `recall-py doctor`
 
 Check database path, schema version, and Ollama reachability.
 
@@ -61,7 +61,7 @@ Options:
   --config, -c PATH   Optional YAML config path
 ```
 
-### `tokenguard metrics`
+### `recall-py metrics`
 
 Show estimated token savings and usage events.
 
@@ -72,26 +72,26 @@ Options:
   --json                      Output as JSON instead of a table
 ```
 
-### `tokenguard index`
+### `recall-py index`
 
 Index README, rules, and docs into workspace RAG memory.
 
 ```
 Options:
-  --workspace, -w PATH    Repo root to index (default: cwd or TOKENGUARD_WORKSPACE)
+  --workspace, -w PATH    Repo root to index (default: cwd or RECALL_PY_WORKSPACE)
   --force                 Re-index unchanged files
   --config, -c PATH       Optional YAML config path
 ```
 
-### `tokenguard hook`
+### `recall-py hook`
 
 Run Cursor hook handlers (reads JSON from stdin).
 
 ```
-Usage: tokenguard hook before-prompt|after-response
+Usage: recall-py hook before-prompt|after-response
 ```
 
-### `tokenguard migrate`
+### `recall-py migrate`
 
 Apply SQLite schema migrations only.
 

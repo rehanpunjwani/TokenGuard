@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from tokenguard.indexing import collect_index_files, index_workspace
+from recall_py.indexing import collect_index_files, index_workspace
 
 
 def test_collect_index_files(tmp_path: Path):
@@ -20,11 +20,11 @@ def test_collect_index_files(tmp_path: Path):
 @pytest.mark.asyncio
 async def test_index_workspace(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
-    (tmp_path / "README.md").write_text("# TokenGuard\nLocal cache.", encoding="utf-8")
-    from tokenguard.app import open_connection
-    from tokenguard.ollama_client import OllamaClient
-    from tokenguard.settings import AppSettings
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
+    (tmp_path / "README.md").write_text("# RecallPy\nLocal cache.", encoding="utf-8")
+    from recall_py.app import open_connection
+    from recall_py.ollama_client import OllamaClient
+    from recall_py.settings import AppSettings
 
     settings = AppSettings.load()
     conn = open_connection(settings)

@@ -1,32 +1,32 @@
-# TokenGuard Troubleshooting Guide
+# RecallPy Troubleshooting Guide
 
 ## MCP Integration Issues
 
-### "Invalid JSON: EOF" error when running `tokenguard mcp-stdio`
+### "Invalid JSON: EOF" error when running `recall-py mcp-stdio`
 
-**Problem:** You ran `tokenguard mcp-stdio` directly in your terminal and see JSON parsing errors.
+**Problem:** You ran `recall-py mcp-stdio` directly in your terminal and see JSON parsing errors.
 
 **Solution:** Don't run this command manually! The `mcp-stdio` command is designed to be spawned by your IDE (Cursor, Claude Code, etc.). It communicates via standard input/output with the IDE.
 
 **Correct workflow:**
-1. Install TokenGuard: `pip install -e .`
-2. Run onboarding: `tokenguard onboard`
-3. Configure MCP in your IDE settings (see README.md). If the IDE cannot resolve `tokenguard` on `PATH`, use an absolute path from `command -v tokenguard` or the `python -m tokenguard` pattern in the README.
+1. Install RecallPy: `pip install -e .`
+2. Run onboarding: `recall-py onboard`
+3. Configure MCP in your IDE settings (see README.md). If the IDE cannot resolve `recall-py` on `PATH`, use an absolute path from `command -v recall-py` or the `python -m recall_py` pattern in the README.
 4. Let the IDE spawn the MCP server automatically
 
 ### MCP server not responding or tools failing
 
-**`MCP error -32000: Connection closed`** — the MCP child process exited immediately. Usually the IDE cannot find `tokenguard` on `PATH`. Fix: use [`.cursor/mcp.json`](.cursor/mcp.json) in this repo, run `pip install -e .`, reload Cursor, and remove conflicting manual MCP entries.
+**`MCP error -32000: Connection closed`** — the MCP child process exited immediately. Usually the IDE cannot find `recall-py` on `PATH`. Fix: use [`.cursor/mcp.json`](.cursor/mcp.json) in this repo, run `pip install -e .`, reload Cursor, and remove conflicting manual MCP entries.
 
 **Check 1: Is Ollama running?**
 ```bash
-tokenguard doctor
+recall-py doctor
 ```
 This should report Ollama as reachable. If not:
 
 **If using Docker:**
 ```bash
-cd /path/to/your/tokenguard-clone
+cd /path/to/your/recall-py-clone
 bash scripts/docker-up.sh
 # Verify containers are up
 docker ps
@@ -48,17 +48,17 @@ ollama list
 ```
 You should see `nomic-embed-text` and `llama3.2`.
 
-**Check 3: Can TokenGuard connect to Ollama?**
+**Check 3: Can RecallPy connect to Ollama?**
 ```bash
-tokenguard doctor
+recall-py doctor
 ```
 
 **Check 4: View MCP server logs**
 
 When your IDE starts the MCP server, it logs diagnostics to stderr. Look for:
-- "TokenGuard: Loaded config (Ollama: ...)"
-- "TokenGuard: Database ready at ..."
-- "TokenGuard WARNING: Ollama not reachable..." (indicates a problem)
+- "RecallPy: Loaded config (Ollama: ...)"
+- "RecallPy: Database ready at ..."
+- "RecallPy WARNING: Ollama not reachable..." (indicates a problem)
 
 In Cursor, these logs may be visible in the developer console or MCP server output panel.
 
@@ -67,7 +67,7 @@ In Cursor, these logs may be visible in the developer console or MCP server outp
 **Problem:** Docker containers not starting
 
 ```bash
-cd /path/to/your/tokenguard-clone
+cd /path/to/your/recall-py-clone
 docker compose down
 docker compose up --build -d
 docker compose logs -f
@@ -76,7 +76,7 @@ docker compose logs -f
 **Problem:** Ollama in Docker has no models
 
 ```bash
-cd /path/to/your/tokenguard-clone
+cd /path/to/your/recall-py-clone
 docker compose exec ollama ollama list
 # If empty:
 docker compose exec ollama ollama pull nomic-embed-text
@@ -90,7 +90,7 @@ The Docker Compose exposes Ollama on `http://127.0.0.1:11434`. Verify:
 curl http://127.0.0.1:11434/api/tags
 ```
 
-If this works, TokenGuard's MCP server (running on your host) should be able to connect.
+If this works, RecallPy's MCP server (running on your host) should be able to connect.
 
 ## Configuration Issues
 
@@ -98,18 +98,18 @@ If this works, TokenGuard's MCP server (running on your host) should be able to 
 
 Set the environment variable:
 ```bash
-export TOKENGUARD_CONFIG=/path/to/your/config.yaml
+export RECALL_PY_CONFIG=/path/to/your/config.yaml
 ```
 
 Or in your IDE's MCP settings:
 ```json
 {
   "mcpServers": {
-    "tokenguard": {
-      "command": "tokenguard",
+    "recall-py": {
+      "command": "recall-py",
       "args": ["mcp-stdio"],
       "env": {
-        "TOKENGUARD_CONFIG": "/path/to/your/config.yaml"
+        "RECALL_PY_CONFIG": "/path/to/your/config.yaml"
       }
     }
   }
@@ -118,10 +118,10 @@ Or in your IDE's MCP settings:
 
 ### Database errors
 
-The default database path is `~/.local/share/tokenguard/tokenguard.db`. Ensure:
+The default database path is `~/.local/share/recall-py/recall-py.db`. Ensure:
 1. The directory exists and is writable
-2. Run `tokenguard migrate` to apply schema updates
-3. If corrupted, delete the DB file and run `tokenguard migrate` again
+2. Run `recall-py migrate` to apply schema updates
+3. If corrupted, delete the DB file and run `recall-py migrate` again
 
 ## Performance Issues
 
@@ -139,7 +139,7 @@ The default database path is `~/.local/share/tokenguard/tokenguard.db`. Ensure:
 
 ## Getting Help
 
-1. Run diagnostics: `tokenguard doctor`
+1. Run diagnostics: `recall-py doctor`
 2. Check Ollama: `ollama list` and `curl http://127.0.0.1:11434/api/tags`
 3. Verify Docker (if using): `docker ps` and `docker compose logs`
 4. Review MCP server stderr logs in your IDE
@@ -150,13 +150,13 @@ The default database path is `~/.local/share/tokenguard/tokenguard.db`. Ensure:
 ### Fresh start after Docker restart
 
 ```bash
-cd /path/to/your/tokenguard-clone
+cd /path/to/your/recall-py-clone
 bash scripts/docker-up.sh
 # Wait for models to pull (first time only)
 # Then use your IDE normally - MCP will connect automatically
 ```
 
-### Using TokenGuard without Docker
+### Using RecallPy without Docker
 
 ```bash
 # Terminal 1: Run Ollama
@@ -167,18 +167,18 @@ ollama pull nomic-embed-text
 ollama pull llama3.2
 
 # Configure MCP in your IDE
-# Let IDE spawn tokenguard mcp-stdio
+# Let IDE spawn recall-py mcp-stdio
 ```
 
 ### Testing MCP tools manually (for debugging)
 
 You can test the underlying functions without MCP:
 ```bash
-tokenguard doctor  # Health check
+recall-py doctor  # Health check
 # Or use Python REPL:
 python
->>> from tokenguard.settings import AppSettings
->>> from tokenguard.ollama_client import OllamaClient
+>>> from recall_py.settings import AppSettings
+>>> from recall_py.ollama_client import OllamaClient
 >>> import asyncio
 >>> s = AppSettings.load()
 >>> o = OllamaClient(s.ollama)

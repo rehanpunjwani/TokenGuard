@@ -1,4 +1,4 @@
-# Default TokenGuard configuration. Override with ~/.config/tokenguard/config.yaml or TOKENGUARD_* env.
+# Default RecallPy configuration. Override with ~/.config/recall-py/config.yaml or RECALL_PY_* env.
 
 ollama:
   base_url: "http://127.0.0.1:11434"
@@ -8,7 +8,7 @@ ollama:
 
 storage:
   # Resolved relative to cwd if not absolute
-  db_path: "~/.local/share/tokenguard/tokenguard.db"
+  db_path: "~/.local/share/recall-py/recall-py.db"
 
 limits:
   max_local_answer_tokens: 512

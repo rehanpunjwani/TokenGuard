@@ -6,7 +6,7 @@
   "include-component-in-tag": false,
   "packages": {
     ".": {
-      "extra-files": ["src/tokenguard/__init__.py"],
+      "extra-files": ["src/recall_py/__init__.py"],
       "changelog-path": "CHANGELOG.md"
     }
   }

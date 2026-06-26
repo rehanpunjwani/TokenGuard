@@ -12,20 +12,20 @@ services:
       retries: 30
       start_period: 15s
 
-  tokenguard:
+  recall-py:
     build: .
     ports:
       - "8766:8766"
     environment:
-      TOKENGUARD_OLLAMA_BASE_URL: http://ollama:11434
-      TOKENGUARD_DB_PATH: /data/tokenguard.db
-      TOKENGUARD_API_LISTEN_HOST: 0.0.0.0
+      RECALL_PY_OLLAMA_BASE_URL: http://ollama:11434
+      RECALL_PY_DB_PATH: /data/recall-py.db
+      RECALL_PY_API_LISTEN_HOST: 0.0.0.0
     volumes:
-      - tokenguard_data:/data
+      - recall_py_data:/data
     depends_on:
       ollama:
         condition: service_healthy
 
 volumes:
   ollama_data:
-  tokenguard_data:
+  recall_py_data:

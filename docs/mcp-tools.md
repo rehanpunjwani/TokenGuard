@@ -1,10 +1,10 @@
 # MCP Tools
 
-TokenGuard implements a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that exposes its functionality as tools your IDE's agent can call directly.
+RecallPy implements a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that exposes its functionality as tools your IDE's agent can call directly.
 
 ## Available tools
 
-### `tokenguard_handle_query` (primary)
+### `recall_py_handle_query` (primary)
 
 Call on every user question. Ingests the query, retrieves context, generates a local draft, and returns a unified `thread_id`.
 
@@ -16,7 +16,7 @@ Call on every user question. Ingests the query, retrieves context, generates a l
 
 **Returns:** JSON with `thread_id`, `context_pack`, `policy`, and `metrics`.
 
-### `tokenguard_ingest_turn`
+### `recall_py_ingest_turn`
 
 Store a message after replying. Use with `role=assistant` to save your response.
 
@@ -28,17 +28,17 @@ Store a message after replying. Use with `role=assistant` to save your response.
 - `provider` (str, optional) — e.g. `"cursor"`, `"claude"`
 - `model` (str, optional) — e.g. `"gpt-4"`
 
-### `tokenguard_answer`
+### `recall_py_answer`
 
 Retrieve context and local hint. Prefer `handle_query` for new questions.
 
 **Parameters:** Same as `handle_query`.
 
-### `tokenguard_answer_stream`
+### `recall_py_answer_stream`
 
 Stream a local draft token by token via MCP progress notifications.
 
-### `tokenguard_escalate_pack`
+### `recall_py_escalate_pack`
 
 Build a compact JSON pack (RAG context + recent turns) when the local draft is insufficient.
 
@@ -50,7 +50,7 @@ Build a compact JSON pack (RAG context + recent turns) when the local draft is i
 
 **Returns:** JSON with `pack_json` containing all context for the cloud model.
 
-### `tokenguard_index`
+### `recall_py_index`
 
 Index README, rules, and docs into RAG memory. Run once per workspace.
 
@@ -59,7 +59,7 @@ Index README, rules, and docs into RAG memory. Run once per workspace.
 - `workspace_fingerprint` (str, optional)
 - `force` (bool, default: `false`)
 
-### `tokenguard_metrics`
+### `recall_py_metrics`
 
 Return estimated token savings and usage breakdown.
 
@@ -71,11 +71,11 @@ Return estimated token savings and usage breakdown.
 
 ### Cursor
 
-This repo includes `.cursor/mcp.json` that auto-launches `tokenguard mcp-stdio`. After install:
+This repo includes `.cursor/mcp.json` that auto-launches `recall-py mcp-stdio`. After install:
 
-1. Run `tokenguard onboard` to verify everything works
+1. Run `recall-py onboard` to verify everything works
 2. Reload the Cursor window
-3. The agent will automatically call `tokenguard_handle_query` on each question
+3. The agent will automatically call `recall_py_handle_query` on each question
 
 ### Claude Code / Claude Desktop
 
@@ -84,8 +84,8 @@ Add to your MCP settings:
 ```json
 {
   "mcpServers": {
-    "tokenguard": {
-      "command": "tokenguard",
+    "recall-py": {
+      "command": "recall-py",
       "args": ["mcp-stdio"]
     }
   }
@@ -94,7 +94,7 @@ Add to your MCP settings:
 
 ### Troubleshooting
 
-- Run `tokenguard doctor` to check connectivity
+- Run `recall-py doctor` to check connectivity
 - Ensure Ollama is running with the required models
 - Check IDE logs for MCP stderr output
 - Test with `bash scripts/mcp-stdio.sh` from the repo root

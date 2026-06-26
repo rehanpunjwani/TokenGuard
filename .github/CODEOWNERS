@@ -2,7 +2,7 @@
 * @rehanpunjwani
 
 # Core source code changes require explicit review
-src/tokenguard/ @rehanpunjwani
+src/recall_py/ @rehanpunjwani
 
 # CI/CD and configuration changes
 .github/ @rehanpunjwani

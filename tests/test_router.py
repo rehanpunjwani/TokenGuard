@@ -1,4 +1,4 @@
-from tokenguard.router import should_force_escalate
+from recall_py.router import should_force_escalate
 
 
 def test_escalate_keyword():

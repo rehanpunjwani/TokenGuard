@@ -1,8 +1,8 @@
-site_name: TokenGuard
+site_name: RecallPy
 site_description: Local-first conversation cache, RAG, and routing to reduce cloud LLM spend.
 site_url: https://rehanpunjwani.github.io/TokenGuard
 repo_url: https://github.com/rehanpunjwani/TokenGuard
-repo_name: rehanpunjwani/TokenGuard
+repo_name: rehanpunjwani/RecallPy
 edit_uri: blob/main/docs/
 
 theme:

@@ -1,10 +1,10 @@
 # Configuration
 
-TokenGuard loads configuration from multiple sources, each overriding the previous:
+RecallPy loads configuration from multiple sources, each overriding the previous:
 
-1. **Shipped defaults** — `src/tokenguard/config/default.yaml`
-2. **User config** — `~/.config/tokenguard/config.yaml` (when `TOKENGUARD_CONFIG` is unset)
-3. **`TOKENGUARD_CONFIG` env var** — points to an explicit YAML file
+1. **Shipped defaults** — `src/recall_py/config/default.yaml`
+2. **User config** — `~/.config/recall-py/config.yaml` (when `RECALL_PY_CONFIG` is unset)
+3. **`RECALL_PY_CONFIG` env var** — points to an explicit YAML file
 4. **`--config` CLI flag** — explicit path (highest file priority)
 5. **Environment variable overlays** — for Docker/k8s deployments
 
@@ -18,7 +18,7 @@ ollama:
   timeout_seconds: 30.0
 
 storage:
-  db_path: "~/.local/share/tokenguard/tokenguard.db"
+  db_path: "~/.local/share/recall-py/recall-py.db"
 
 limits:
   chunk_size_chars: 1200
@@ -55,10 +55,10 @@ For containerized deployments, each config field has a matching env var:
 
 | Env var | Config field | Example |
 |---------|-------------|---------|
-| `TOKENGUARD_OLLAMA_BASE_URL` | `ollama.base_url` | `http://ollama:11434` |
-| `TOKENGUARD_DB_PATH` | `storage.db_path` | `/data/tokenguard.db` |
-| `TOKENGUARD_API_LISTEN_HOST` | `api.listen_host` | `0.0.0.0` |
-| `TOKENGUARD_API_LISTEN_PORT` | `api.listen_port` | `8766` |
+| `RECALL_PY_OLLAMA_BASE_URL` | `ollama.base_url` | `http://ollama:11434` |
+| `RECALL_PY_DB_PATH` | `storage.db_path` | `/data/recall-py.db` |
+| `RECALL_PY_API_LISTEN_HOST` | `api.listen_host` | `0.0.0.0` |
+| `RECALL_PY_API_LISTEN_PORT` | `api.listen_port` | `8766` |
 
 ## All config sections
 
@@ -75,7 +75,7 @@ For containerized deployments, each config field has a matching env var:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `db_path` | `~/.local/share/tokenguard/tokenguard.db` | SQLite database path |
+| `db_path` | `~/.local/share/recall-py/recall-py.db` | SQLite database path |
 
 ### `limits`
 

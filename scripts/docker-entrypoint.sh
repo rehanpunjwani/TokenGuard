@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 set -e
-BASE="${TOKENGUARD_OLLAMA_BASE_URL:-http://127.0.0.1:11434}"
+BASE="${RECALL_PY_OLLAMA_BASE_URL:-http://127.0.0.1:11434}"
 BASE="${BASE%/}"
-echo "TokenGuard: waiting for Ollama at ${BASE} ..."
+echo "RecallPy: waiting for Ollama at ${BASE} ..."
 i=0
 while [ "$i" -lt 120 ]; do
   if python - <<PY
@@ -16,7 +16,7 @@ except Exception:
 PY
   then
     echo "Ollama is up."
-    exec tokenguard serve "$@"
+    exec recall-py serve "$@"
   fi
   i=$((i + 1))
   sleep 1

@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from tokenguard.threads import thread_id_for_workspace, workspace_fingerprint
+from recall_py.threads import thread_id_for_workspace, workspace_fingerprint
 
 
 def test_workspace_fingerprint_from_roots():
@@ -20,13 +20,13 @@ def test_thread_id_stable_per_workspace():
 @pytest.mark.asyncio
 async def test_handle_query_ingests_user(tmp_path, monkeypatch):
     monkeypatch.setenv("HOME", str(tmp_path))
-    monkeypatch.delenv("TOKENGUARD_CONFIG", raising=False)
-    monkeypatch.setenv("TOKENGUARD_WORKSPACE", str(tmp_path / "proj"))
-    from tokenguard.app import open_connection
-    from tokenguard.engine import handle_query
-    from tokenguard.ollama_client import OllamaClient
-    from tokenguard.settings import AppSettings
-    from tokenguard.threads import thread_id_for_fingerprint
+    monkeypatch.delenv("RECALL_PY_CONFIG", raising=False)
+    monkeypatch.setenv("RECALL_PY_WORKSPACE", str(tmp_path / "proj"))
+    from recall_py.app import open_connection
+    from recall_py.engine import handle_query
+    from recall_py.ollama_client import OllamaClient
+    from recall_py.settings import AppSettings
+    from recall_py.threads import thread_id_for_fingerprint
 
     settings = AppSettings.load()
     conn = open_connection(settings)
@@ -41,7 +41,7 @@ async def test_handle_query_ingests_user(tmp_path, monkeypatch):
             conn,
             settings,
             ollama,
-            query="What is TokenGuard?",
+            query="What is RecallPy?",
             thread_id=None,
             workspace_fingerprint=ws,
         )

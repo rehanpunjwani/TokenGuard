@@ -1,4 +1,4 @@
-from tokenguard.text.redact import redact_text
+from recall_py.text.redact import redact_text
 
 
 def test_redact_api_key_pattern():

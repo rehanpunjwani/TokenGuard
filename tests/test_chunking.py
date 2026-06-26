@@ -1,4 +1,4 @@
-from tokenguard.text.chunking import chunk_text
+from recall_py.text.chunking import chunk_text
 
 
 def test_chunk_text_overlap():

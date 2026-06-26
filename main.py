@@ -1,4 +1,4 @@
-from tokenguard.cli import main
+from recall_py.cli import main
 
 if __name__ == "__main__":
     main()

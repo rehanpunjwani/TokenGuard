@@ -5,4 +5,4 @@
 
 ### Features
 
-* initial release of TokenGuard ([04255c4](https://github.com/rehanpunjwani/TokenGuard/commit/04255c4f4489141034ad9b474247b40e50723613))
+* initial release of RecallPy ([04255c4](https://github.com/rehanpunjwani/TokenGuard/commit/04255c4f4489141034ad9b474247b40e50723613))
