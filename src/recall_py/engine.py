@@ -96,15 +96,16 @@ async def ingest_turn(
         (content_tokens + embed_tokens, mid),
     )
     conn.commit()
+    metrics: dict[str, Any] = {
+        "tokens_embedded": embed_tokens,
+        "tokens_content": content_tokens,
+    }
     out: dict[str, Any] = {
         "thread_id": tid,
         "message_id": mid,
         "chunk_ids": chunk_ids,
         "chunks_indexed": len(chunk_ids),
-        "metrics": {
-            "tokens_embedded": embed_tokens,
-            "tokens_content": content_tokens,
-        },
+        "metrics": metrics,
     }
     if role == "assistant":
         out["metrics"]["cloud_estimate"] = record_cloud_assistant(

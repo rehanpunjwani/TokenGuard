@@ -30,8 +30,8 @@ jobs:
       - name: Lint with ruff
         run: uv run ruff check src/ tests/
 
-      - name: Typecheck with pyright
-        run: uv run pyright src/ tests/
+      - name: Typecheck with ty
+        run: uv run ty check src/ tests/
 
       - name: Test with pytest
         run: uv run pytest tests/ -v --tb=short
