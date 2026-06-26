@@ -38,8 +38,12 @@ jobs:
 
       - name: Publish to PyPI
         if: github.event_name == 'release' && inputs.pypi_target != 'testpypi'
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: uv publish
 
       - name: Publish to TestPyPI
         if: inputs.pypi_target == 'testpypi'
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: uv publish --publish-url https://test.pypi.org/legacy/
